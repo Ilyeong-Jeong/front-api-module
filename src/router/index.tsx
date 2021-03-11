@@ -11,7 +11,11 @@ const routes: RouteConfig[] = [
       {
         path     : "/",
         exact    : true,
-        component: React.lazy(() => import("../page/api-test-page"))
+        component: React.lazy(() => import("../page/dashboard"))
+      },
+      {
+        path     : "/rest",
+        component: React.lazy(() => import("../page/api-rest-page"))
       },
     ]
   }
