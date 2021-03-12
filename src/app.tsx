@@ -13,6 +13,7 @@ function App ({ route }: RouteConfigComponentProps) {
       <div className="menu">
         <Link to="/">Dashboard</Link>
         <Link to="/rest">REST API page</Link>
+        <Link to="/gql">GQL API page</Link>
       </div>
       
       <React.Suspense fallback={ <div>Loading...</div> }>

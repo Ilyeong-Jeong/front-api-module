@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import {stringify} from 'qs';
+
 import CustomError from "./model/error"
 
 export class Api {
@@ -52,6 +54,7 @@ export class Api {
 }
 
 export class Rest extends Api {
+
   constructor () {
     // test용 URL (참고: https://jsonplaceholder.typicode.com)
     super("https://jsonplaceholder.typicode.com")
@@ -77,4 +80,50 @@ export class Rest extends Api {
 
 export class Gql extends Api {
 
+  constructor () {
+    // test용 URL (참고: https://developers.universe.com/docs/graphql)
+    // super("https://api.melody.sh")
+    super("https://developers.universe.com")
+    // super("https://api.github.com")
+  }
+
+  gqlApi (gqlObject: {
+    variables?: object,
+    query     : string
+  }): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.call({
+        url   : 'graphql',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: Object.assign({}, {
+          variables: {}
+        }, gqlObject)
+      })
+      .then((result) => {
+        // error 케이스
+        if(result.errors && result.errors.length > 0) {
+          reject(result.errors.map((error: any) => {
+            if(error.extensions) {
+              return new CustomError({
+                status : error.extensions.status,
+                message: error.extensions.message,
+              });
+            } else {
+              return new CustomError({
+                message: "System Error"
+              })
+            }
+          }));
+        } else {
+          resolve(result.data);
+        }
+      })
+      .catch((errors) => {
+        reject(errors);
+      })
+    })
+  }
 }

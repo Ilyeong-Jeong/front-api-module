@@ -17,6 +17,10 @@ const routes: RouteConfig[] = [
         path     : "/rest",
         component: React.lazy(() => import("../page/api-rest-page"))
       },
+      {
+        path     : "/gql",
+        component: React.lazy(() => import("../page/api-gql-page"))
+      },
     ]
   }
 ]

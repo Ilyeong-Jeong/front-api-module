@@ -1,0 +1,10 @@
+schema: https://www.universe.com/graphql
+overwrite: true
+generates:
+  ./src/module/type/types.ts:
+    plugins:
+      - typescript
+    config:
+      declarationKind: 'interface'
+      skipTypename: true
+      maybeValue: T | null | undefined

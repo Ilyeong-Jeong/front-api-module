@@ -1,7 +1,5 @@
 # front-api-module
-**API Modularization (REST API, GraphQL)**
-
-Still working on it...
+**Front-end에서 REST API, GQL을 사용하기 위한 API 모듈**
 
 ## Tech Stack
 Node v14 base
@@ -20,3 +18,5 @@ npm install
 ```
 npm run dev
 ```
+
+**Still working on it...**

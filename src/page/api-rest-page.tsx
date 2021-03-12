@@ -32,10 +32,10 @@ function ApiRestPage () {
   }, []);
 
   if (loading) return <div>로딩중..</div>;
-  if (error) return <div>에러가 발생했습니다</div>;
+  if (error) return <div>에러가 발생했습니다.</div>;
   if (!users) return <div>No data...</div>;
   return (
-    <div className="rest-api-page">
+    <div className="api-rest-page">
       <h3>Test space</h3>
       <ul>
         {users.map((user: any) => (
