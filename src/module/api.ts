@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {stringify} from 'qs';
+import { stringify } from 'qs';
 
 import CustomError from "./model/error"
 
@@ -82,9 +82,7 @@ export class Gql extends Api {
 
   constructor () {
     // test용 URL (참고: https://developers.universe.com/docs/graphql)
-    // super("https://api.melody.sh")
     super("https://developers.universe.com")
-    // super("https://api.github.com")
   }
 
   gqlApi (gqlObject: {
@@ -95,7 +93,7 @@ export class Gql extends Api {
       this.call({
         url   : 'graphql',
         method: 'POST',
-        headers: {
+        headers: { 
           'Content-Type': 'application/json',
         },
         data: Object.assign({}, {
