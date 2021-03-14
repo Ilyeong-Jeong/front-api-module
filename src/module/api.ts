@@ -17,7 +17,7 @@ export class Api {
   _initializeAjax () {
     const _ajax = axios.create({
       baseURL: this.baseUrl,
-      withCredentials: true,
+      // withCredentials: true,
     });
 
     _ajax.interceptors.response.use((response) => {
@@ -81,8 +81,8 @@ export class Rest extends Api {
 export class Gql extends Api {
 
   constructor () {
-    // test용 URL (참고: https://developers.universe.com/docs/graphql)
-    super("https://developers.universe.com")
+    // test용 URL (참고: https://api.spacex.land/graphql/)
+    super("https://api.spacex.land")
   }
 
   gqlApi (gqlObject: {

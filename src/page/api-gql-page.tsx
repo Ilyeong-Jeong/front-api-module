@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Gql } from "module/api";
 
 function ApiRestPage () {
-  const [event, setEvent] = React.useState(null);
+  const [ids, setIds] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
 
@@ -11,33 +11,24 @@ function ApiRestPage () {
     const fetchUsers = async () => {
       try {
         setError(null);
-        setEvent(null);
+        setIds(null);
         setLoading(true);
 
         const gqlService = new Gql();
 
+        const query = 'capsulesPast'
+
         const response = await gqlService.gqlApi({
           query: `
             query {
-              event(id: "5879ad8f6672e70036d58ba5") {
-                title
-                address
-                currency
-                host {
-                  firstName
-                }
-                timeSlots {
-                  totalCount
-                  nodes {
-                    startAt
-                  }
-                }
+              ${query} {
+                id
               }
             }
           `
         })
-        console.log(response)
-        setEvent(response.data); 
+
+        setIds(response[query]); 
       } catch (e) {
         setError(e);
       }
@@ -49,11 +40,17 @@ function ApiRestPage () {
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다.</div>;
-  if (!event) return <div>No data...</div>;
+  if (!ids) return <div>No data...</div>;
   return (
     <div className="api-gql-page">
       <h3>Test space</h3>
-      {event.title}
+      <ul>
+        {ids.map((v: any) => (
+          <li key={v.id}>
+            {v.id}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

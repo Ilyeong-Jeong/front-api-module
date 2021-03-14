@@ -105,10 +105,7 @@ module.exports = {
     port              : port,
     contentBase       : __dirname + '/dist/',
     historyApiFallback: true,
-    headers: {
-      'Access-Control-Allow-Origin': '*'
-    },
-    watchOptions: {
+    watchOptions      : {
       aggregateTimeout: 5000,
       poll            : 5000,
       ignored         : 'node_modules',
