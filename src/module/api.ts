@@ -4,6 +4,8 @@ import { stringify } from 'qs';
 
 import CustomError from "./model/error"
 
+import { IRestObject, IGqlObject } from "./type/types"
+
 export class Api {
   ajax   : any;
   baseUrl: string;
@@ -17,6 +19,7 @@ export class Api {
   _initializeAjax () {
     const _ajax = axios.create({
       baseURL: this.baseUrl,
+      // CORS 사용 시 정책적으로 wildcard만 있는 경우 인증 데이터를 사용하지 못하도록 제재
       // withCredentials: true,
     });
 
@@ -60,14 +63,21 @@ export class Rest extends Api {
     super("https://jsonplaceholder.typicode.com")
   }
 
-  restApi (restObject: {
-    url    : string,
-    method : string,
-    header?: string,
-    data  ?: string
-  }): Promise<any> {
+  _restConvert (restObject: IRestObject) {
+    return Object.assign({}, restObject, {
+      url: (() => {
+        if (restObject.qs) {
+          return `${restObject.url}${stringify(restObject.qs, { addQueryPrefix: true })}`
+        } else {
+          return restObject.url
+        }
+      })()
+    })
+  }
+
+  restApi (restObject: IRestObject): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.call(restObject)
+      this.call(this._restConvert(restObject))
       .then((result) => {
         resolve(result);
       })
@@ -85,10 +95,7 @@ export class Gql extends Api {
     super("https://api.spacex.land")
   }
 
-  gqlApi (gqlObject: {
-    variables?: object,
-    query     : string
-  }): Promise<any> {
+  gqlApi (gqlObject: IGqlObject): Promise<any> {
     return new Promise((resolve, reject) => {
       this.call({
         url   : 'graphql',

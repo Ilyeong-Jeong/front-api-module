@@ -1,4 +1,4 @@
-# front-api-module (Still working on it...)
+# front-api-module 
 **Front-end에서 REST API, GQL을 사용하기 위한 API 모듈**
 
 ## Tech Stack
@@ -20,4 +20,5 @@ npm run dev
 ```
 
 ## TODO List
-- REST API description auto injection qs, header...
+- GQL test query 변경
+- 임시로 만든 api test case 정리
