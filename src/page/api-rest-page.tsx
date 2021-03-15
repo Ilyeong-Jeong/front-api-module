@@ -3,16 +3,16 @@ import * as React from 'react';
 import { Rest } from "module/api";
 
 function ApiRestPage () {
-  const [users, setUsers] = React.useState(null);
+  const [users, setUsers]     = React.useState(null);
   const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState(null);
+  const [error, setError]     = React.useState(null);
 
   React.useEffect(() => {
     const fetchUsers = async () => {
       try {
-        setError(null);
         setUsers(null);
         setLoading(true);
+        setError(null);
 
         const restService = new Rest();
 
@@ -36,7 +36,7 @@ function ApiRestPage () {
   if (!users) return <div>No data...</div>;
   return (
     <div className="api-rest-page">
-      <h3>Test space</h3>
+      <h3>REST API Test space</h3>
       <ul>
         {users.map((user: any) => (
           <li key={user.id}>

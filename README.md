@@ -20,5 +20,4 @@ npm run dev
 ```
 
 ## TODO List
-- GQL test query 변경
-- 임시로 만든 api test case 정리
+- api test case 정리
