@@ -21,5 +21,3 @@ npm run dev
 
 ## TODO List
 - api test case 정리
-- styled component 적용
-- 불필요한 라이브러리 정리

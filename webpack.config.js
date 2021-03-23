@@ -47,26 +47,6 @@ module.exports = {
           loader: 'babel-loader'               
         }
       },
-
-      {
-        test: /\.css$/,
-        use : [
-          'style-loader',
-          'css-loader',
-          'postcss-loader'
-        ]
-      }, 
-      
-      {
-        test   : /\.scss$/,
-        exclude: /node_module/, 
-        use    : [
-          'style-loader',
-          'css-loader',
-          'postcss-loader',
-          'sass-loader'
-        ]
-      },      
    
       {
         test   : /\.(ts|tsx)$/,

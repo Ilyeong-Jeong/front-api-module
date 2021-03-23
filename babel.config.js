@@ -8,7 +8,8 @@ module.exports = function (api) {
   ];
 
   const plugins = [
-    "@babel/plugin-transform-runtime"
+    "@babel/plugin-transform-runtime",
+    "babel-plugin-styled-components"
   ];
 
   return {
