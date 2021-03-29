@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Rest } from "module/api";
+import restApiService from "service/rest-api"
 
 function ApiRestPage () {
   const [users, setUsers]     = React.useState(null);
@@ -14,9 +14,7 @@ function ApiRestPage () {
         setLoading(true);
         setError(null);
 
-        const restService = new Rest();
-
-        const response = await restService.restApi({
+        const response = await restApiService.restApi({
           url   : "users",
           method: "get"
         })

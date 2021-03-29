@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 import { stringify } from 'qs';
 
@@ -7,7 +7,7 @@ import CustomError from "./model/error"
 import { IRestObject, IGqlObject } from "./type/types"
 
 export class Api {
-  ajax   : any;
+  _ajax  : AxiosInstance;
   baseUrl: string;
 
   constructor (baseUrl: string) {
@@ -17,13 +17,13 @@ export class Api {
   }
 
   _initializeAjax () {
-    const _ajax = axios.create({
+    const ajax = axios.create({
       baseURL: this.baseUrl,
       // CORS 사용 시 정책적으로 wildcard만 있는 경우 인증 데이터를 사용하지 못하도록 제재
       // withCredentials: true,
     });
 
-    _ajax.interceptors.response.use((response) => {
+    ajax.interceptors.response.use((response) => {
       return response.data;
     }, (error) => {
       const errorObj = (() => {
@@ -40,12 +40,12 @@ export class Api {
       return Promise.reject([customError]);
     });
 
-    this.ajax = _ajax;
+    this._ajax = ajax;
   }
 
   call (ajaxInfo: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.ajax(ajaxInfo)
+      this._ajax(ajaxInfo)
       .then((result: any) => {
         resolve(result);
       })
@@ -58,9 +58,8 @@ export class Api {
 
 export class Rest extends Api {
 
-  constructor () {
-    // test용 URL (참고: https://jsonplaceholder.typicode.com)
-    super("https://jsonplaceholder.typicode.com")
+  constructor (baseUrl: string) {
+    super(baseUrl)
   }
 
   _restConvert (restObject: IRestObject) {
@@ -90,9 +89,8 @@ export class Rest extends Api {
 
 export class Gql extends Api {
 
-  constructor () {
-    // test용 URL (참고: https://api.spacex.land/graphql/)
-    super("https://api.spacex.land")
+  constructor (baseUrl: string) {
+    super(baseUrl)
   }
 
   gqlApi (gqlObject: IGqlObject): Promise<any> {

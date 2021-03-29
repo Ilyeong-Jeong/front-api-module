@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Gql } from "module/api";
+import gqlApiService from "service/gql-api"
 
 function ApiRestPage () {
   const [users, setUsers]     = React.useState(null);
@@ -14,11 +14,9 @@ function ApiRestPage () {
         setLoading(true);
         setError(null);
 
-        const gqlService = new Gql();
-
         const query = 'users'
 
-        const response = await gqlService.gqlApi({
+        const response = await gqlApiService.gqlApi({
           query: `
             query {
               ${query} {

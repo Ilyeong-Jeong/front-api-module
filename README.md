@@ -1,6 +1,8 @@
 # front-api-module 
 **Front-end에서 REST API, GQL을 사용하기 위한 API 모듈**
 
+[API Module](https://github.com/Ilyeong-Jeong/front-api-module/tree/main/src/module) 확인.
+
 ## Tech Stack
 Node v14 base
 - React v17
@@ -21,3 +23,4 @@ npm run dev
 
 ## TODO List
 - api test case 정리
+- webpack config 수정
