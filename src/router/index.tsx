@@ -15,11 +15,11 @@ const routes: RouteConfig[] = [
       },
       {
         path     : "/rest",
-        component: React.lazy(() => import("../page/rest-page"))
+        component: React.lazy(() => import("../page/rest/rest-page"))
       },
       {
         path     : "/gql",
-        component: React.lazy(() => import("../page/gql-page"))
+        component: React.lazy(() => import("../page/gql/gql-page"))
       },
     ]
   }

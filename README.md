@@ -23,4 +23,3 @@ npm run dev
 
 ## TODO List
 - api test case 정리
-- webpack config 수정
