@@ -22,4 +22,5 @@ npm run dev
 ```
 
 ## TODO List
+- redux로 구성중
 - api test case 정리
