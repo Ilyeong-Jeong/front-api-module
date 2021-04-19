@@ -6,7 +6,16 @@ import { renderRoutes }  from "react-router-config";
 import routes            from './router';
 
 import { Provider } from 'react-redux';
-import store        from './store';
+import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
+import ReduxThunk from 'redux-thunk';
+import rootReducer from './store';
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(ReduxThunk, logger)
+);
+
 
 ReactDOM.render(
   <Provider store={ store }>
