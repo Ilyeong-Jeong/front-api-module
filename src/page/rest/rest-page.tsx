@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
-import { getUsersThunk } from 'store/rest';
+import { getUsersAsync } from 'store/rest';
+import { User } from 'models/user';
 
 function ApiRestPage () {
   const { data, loading, error } = useSelector((state: RootState) => state.rest.users);
   const dispatch = useDispatch();
 
   const getUsers = () => {
-    dispatch(getUsersThunk());
+    dispatch(getUsersAsync.request(undefined));
   };
 
   getUsers();
@@ -20,7 +21,7 @@ function ApiRestPage () {
       {error && <div>에러가 발생했습니다.</div>}
       {data && 
         <ul>
-          {data.map((user: any) => (
+          {data.map((user: User) => (
             <li key={user.id}>
               {user.username} ({user.name})
             </li>

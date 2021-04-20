@@ -10,4 +10,4 @@ export const getUsersAsync = createAsyncAction(
   GET_USERS,
   GET_USERS_SUCCESS,
   GET_USERS_ERROR
-)<undefined, User[], AxiosError>();
+)<string, User[], AxiosError>();

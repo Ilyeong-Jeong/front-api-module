@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux';
 
-import rest from './rest';
+import { restSaga } from './rest';
+import rest from './rest/reducer';
+import { all } from 'redux-saga/effects';
+
 
 const rootReducer = combineReducers({
   rest,
@@ -9,6 +12,10 @@ const rootReducer = combineReducers({
 export default rootReducer;
 
 export type RootState = ReturnType<typeof rootReducer>;
+
+export function* rootSaga() {
+  yield all([restSaga()]);
+}
 
 // const store = createStore(
 //   rootReducer,
