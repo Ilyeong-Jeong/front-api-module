@@ -1,6 +1,17 @@
-import { createReducer } from 'typesafe-actions';
-import { RestState, RestAction } from './types';
-import { GET_USERS, GET_USERS_SUCCESS, GET_USERS_ERROR } from './actions';
+import { ActionType, createReducer } from 'typesafe-actions';
+
+import * as actions from './actions';
+import { User } from 'models/user';
+
+export type RestAction = ActionType<typeof actions>;
+
+export type RestState = {
+  users: {
+    loading: boolean;
+    error: Error | null;
+    data: User[] | null;
+  };
+};
 
 const initialState: RestState = {
   users: {
@@ -11,7 +22,7 @@ const initialState: RestState = {
 };
 
 const rest = createReducer<RestState, RestAction>(initialState, {
-  [GET_USERS]: (state) => ({
+  [actions.GET_USERS]: (state) => ({
     ...state,
     users: {
       loading: true,
@@ -19,7 +30,7 @@ const rest = createReducer<RestState, RestAction>(initialState, {
       data: null
     }
   }),
-  [GET_USERS_SUCCESS]: (state, action) => ({
+  [actions.GET_USERS_SUCCESS]: (state, action) => ({
     ...state,
     users: {
       loading: false,
@@ -27,7 +38,7 @@ const rest = createReducer<RestState, RestAction>(initialState, {
       data: action.payload
     }
   }),
-  [GET_USERS_ERROR]: (state, action) => ({
+  [actions.GET_USERS_ERROR]: (state, action) => ({
     ...state,
     users: {
       loading: false,

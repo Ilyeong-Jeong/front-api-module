@@ -9,7 +9,9 @@ function ApiRestPage () {
   const dispatch = useDispatch();
 
   const getUsers = () => {
-    dispatch(getUsersAsync.request(undefined));
+    React.useEffect(() => {
+      dispatch(getUsersAsync.request(undefined));
+    }, [])
   };
 
   getUsers();
@@ -23,7 +25,7 @@ function ApiRestPage () {
         <ul>
           {data.map((user: User) => (
             <li key={user.id}>
-              {user.username} ({user.name})
+              ({user.id}) {user.first_name} {user.last_name}
             </li>
           ))}
         </ul>
