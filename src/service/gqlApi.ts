@@ -1,4 +1,4 @@
-import { Gql } from "module/api";
+import { Gql } from "modules/api";
 
 // GraphQL API Test URL (참고: https://api.spacex.land/graphql/)
 const gqlBaseUrl = "https://api.spacex.land";

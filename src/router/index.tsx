@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { RouteConfig } from 'react-router-config';
 
-import App from '../app';
+import App from '../App';
 
 const routes: RouteConfig[] = [
   {
@@ -11,15 +11,15 @@ const routes: RouteConfig[] = [
       {
         path     : "/",
         exact    : true,
-        component: React.lazy(() => import("../page/dashboard"))
+        component: React.lazy(() => import("../page/Dashboard"))
       },
       {
         path     : "/rest",
-        component: React.lazy(() => import("../page/rest/rest-page"))
+        component: React.lazy(() => import("../page/rest/RestApiPage"))
       },
       {
         path     : "/gql",
-        component: React.lazy(() => import("../page/gql/gql-page"))
+        component: React.lazy(() => import("../page/gql/GqlApiPage"))
       },
     ]
   }

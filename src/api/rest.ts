@@ -1,4 +1,4 @@
-import restApiService from 'service/rest-api';
+import restApiService from 'service/restApi';
 
 export async function getUsers() {
   const users = await restApiService.restApi({

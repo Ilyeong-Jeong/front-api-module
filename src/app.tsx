@@ -5,7 +5,7 @@ import { renderRoutes, RouteConfigComponentProps } from 'react-router-config';
 
 import styled from 'styled-components';
 
-import GlobalStyle from "./style/global-style"
+import GlobalStyle from "./style/globalStyle"
 
 function App ({ route }: RouteConfigComponentProps) {
   return (

@@ -1,10 +1,16 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { 
+  AxiosInstance, 
+  AxiosRequestConfig, 
+  AxiosResponse,
+  AxiosError
+} from 'axios';
 
 import { stringify } from 'qs';
 
-import CustomError from "./model/error"
+// gql error 체크를 위해 사용
+import CustomError from "models/error"
 
-import { IRestObject, IGqlObject } from "./type/types"
+import { IRestObject, IGqlObject } from "models/apiConfig"
 
 export class Api {
   _ajax  : AxiosInstance;
@@ -23,33 +29,22 @@ export class Api {
       // withCredentials: true,
     });
 
-    ajax.interceptors.response.use((response) => {
+    ajax.interceptors.response.use((response: AxiosResponse) => {
       return response.data;
-    }, (error) => {
-      const errorObj = (() => {
-        if (error.response) {
-          // 요청이 이루어졌으며 서버가 2xx의 범위를 벗어나는 상태 코드로 응답
-          return error.response.data;
-        } else {
-          return error;
-        }
-      })();
-
-      const customError = new CustomError(errorObj);
-
-      return Promise.reject([customError]);
+    }, (error: AxiosError) => {
+      return Promise.reject([error]);
     });
 
     this._ajax = ajax;
   }
 
-  call (ajaxInfo: any): Promise<any> {
+  call (ajaxInfo: AxiosRequestConfig): Promise<any> {
     return new Promise((resolve, reject) => {
       this._ajax(ajaxInfo)
       .then((result: any) => {
         resolve(result);
       })
-      .catch((error: Array<CustomError>) => {
+      .catch((error: Array<any>) => {
         reject(error);
       });
     });
@@ -71,17 +66,17 @@ export class Rest extends Api {
           return restObject.url
         }
       })()
-    })
+    }) as AxiosRequestConfig;
   }
 
   restApi (restObject: IRestObject): Promise<any> {
     return new Promise((resolve, reject) => {
       this.call(this._restConvert(restObject))
-      .then((result) => {
+      .then((result: AxiosResponse) => {
         resolve(result);
       })
-      .catch((errors) => {
-        reject(errors);
+      .catch((error: AxiosError) => {
+        reject(error);
       })
     })
   }
@@ -105,7 +100,7 @@ export class Gql extends Api {
           variables: {}
         }, gqlObject)
       })
-      .then((result) => {
+      .then((result) => { // TODO: GQL 200 ok error response type check
         // error 케이스
         if(result.errors && result.errors.length > 0) {
           reject(result.errors.map((error: any) => {
@@ -124,8 +119,8 @@ export class Gql extends Api {
           resolve(result.data);
         }
       })
-      .catch((errors) => {
-        reject(errors);
+      .catch((error: AxiosError) => {
+        reject(error);
       })
     })
   }

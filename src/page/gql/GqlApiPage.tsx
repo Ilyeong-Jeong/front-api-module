@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import gqlApiService from "service/gql-api"
+import gqlApiService from "service/gqlApi"
 
-function ApiRestPage () {
+function GqlApiPage () {
   const [users, setUsers]     = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError]     = React.useState(null);
@@ -54,4 +54,4 @@ function ApiRestPage () {
   )
 }
 
-export default ApiRestPage;
+export default GqlApiPage;

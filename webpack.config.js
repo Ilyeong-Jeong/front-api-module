@@ -8,7 +8,7 @@ module.exports = {
 
   mode: "development",
 
-  entry: './src/main.tsx',
+  entry: './src/index.tsx',
 
   output: {                                          
     path         : path.join(__dirname, '/dist'),

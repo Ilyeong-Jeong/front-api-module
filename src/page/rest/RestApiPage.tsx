@@ -4,7 +4,7 @@ import { RootState } from 'store';
 import { getUsersAsync } from 'store/rest';
 import { User } from 'models/user';
 
-function ApiRestPage () {
+function RestApiPage () {
   const { data, loading, error } = useSelector((state: RootState) => state.rest.users);
   const dispatch = useDispatch();
 
@@ -34,4 +34,4 @@ function ApiRestPage () {
   )
 }
 
-export default ApiRestPage;
+export default RestApiPage;
