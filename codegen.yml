@@ -1,7 +1,7 @@
 schema: https://api.spacex.land/graphql
 overwrite: true
 generates:
-  ./src/models/gqlTypes.ts:
+  ./src/models/gql-types.ts:
     plugins:
       - typescript
     config:

@@ -10,7 +10,7 @@ import { stringify } from 'qs';
 // gql error 체크를 위해 사용
 import CustomError from "models/error"
 
-import { IRestObject, IGqlObject } from "models/apiConfig"
+import { IRestObject, IGqlObject } from "models/api-config"
 
 export class Api {
   _ajax  : AxiosInstance;

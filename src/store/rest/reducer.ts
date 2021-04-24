@@ -2,7 +2,7 @@ import { ActionType, createReducer } from 'typesafe-actions';
 
 import * as actions from './actions';
 
-import { AsyncState, asyncState, createAsyncReducer, transformToArray } from 'modules/reducerUtils';
+import { AsyncState, asyncState, createAsyncReducer, transformToArray } from 'modules/reducer-utils';
 import { User } from 'models/user';
 
 export type RestAction = ActionType<typeof actions>;

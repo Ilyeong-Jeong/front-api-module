@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import gqlApiService from "service/gqlApi"
+import gqlApiService from "service/gql-api"
 
 function GqlApiPage () {
   const [users, setUsers]     = React.useState(null);
