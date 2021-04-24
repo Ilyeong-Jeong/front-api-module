@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { RouteConfig } from 'react-router-config';
 
-import App from '../_App';
+import App from '../App';
 
 const routes: RouteConfig[] = [
   {
@@ -11,7 +11,7 @@ const routes: RouteConfig[] = [
       {
         path     : "/",
         exact    : true,
-        component: React.lazy(() => import("../page/_Dashboard"))
+        component: React.lazy(() => import("../page/Dashboard"))
       },
       {
         path     : "/rest",
