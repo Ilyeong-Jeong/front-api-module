@@ -1,55 +1,35 @@
 import * as React from 'react';
-
-import gqlApiService from "service/gql-api"
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'store';
+import { getUsersAsync } from 'store/gql';
+import { Users } from "models/gql-types";
 
 function GqlApiPage () {
-  const [users, setUsers]     = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError]     = React.useState(null);
+  const { data, loading, error } = useSelector((state: RootState) => state.gql.users);
+  const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        setUsers(null);
-        setLoading(true);
-        setError(null);
+  const getUsers = () => {
+    React.useEffect(() => {
+      dispatch(getUsersAsync.request(undefined));
+    }, [])
+  };
 
-        const query = 'users'
+  getUsers();
 
-        const response = await gqlApiService.gqlApi({
-          query: `
-            query {
-              ${query} {
-                id
-                name
-              }
-            }
-          `
-        })
-
-        setUsers(response[query]); 
-      } catch (e) {
-        setError(e);
-      }
-      setLoading(false);
-    };
-
-    fetchUsers();
-  }, []);
-
-  if (loading) return <div>로딩중..</div>;
-  if (error) return <div>에러가 발생했습니다.</div>;
-  if (!users) return <div>No data...</div>;
   return (
     <div className="api-gql-page">
       <h3>GQL Test space</h3>
-      <ul>
-        {users.map((user: any) => (
-          <li key={user.id}>
-            {user.name} ({user.id})
-          </li>
-        ))}
-      </ul>
+      {loading && <div>로딩중..</div>}
+      {error && <div>에러가 발생했습니다.</div>}
+      {data && 
+        <ul>
+          {data.map((user: Users) => (
+            <li key={user.id}>
+              ({user.id}) {user.name} {user.timestamp}
+            </li>
+          ))}
+        </ul>
+      }
     </div>
   )
 }
