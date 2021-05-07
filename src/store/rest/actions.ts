@@ -6,8 +6,10 @@ export const GET_USERS = 'rest/GET_USERS';
 export const GET_USERS_SUCCESS = 'rest/GET_USERS_SUCCESS';
 export const GET_USERS_ERROR = 'rest/GET_USERS_ERROR';
 
+interface UsersPayload {}
+
 export const getUsersAsync = createAsyncAction(
   GET_USERS,
   GET_USERS_SUCCESS,
   GET_USERS_ERROR
-)<string, User[], AxiosError>();
+)<UsersPayload, User[], AxiosError>();

@@ -10,7 +10,7 @@ function GqlApiPage () {
 
   const getUsers = () => {
     React.useEffect(() => {
-      dispatch(getUsersAsync.request(undefined));
+      dispatch(getUsersAsync.request(''));
     }, [])
   };
 
