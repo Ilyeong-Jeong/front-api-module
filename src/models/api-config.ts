@@ -1,4 +1,4 @@
-export interface IRestObject {
+export interface IRestConfig {
   url    : string,
   method : string,
   header?: string,
@@ -6,7 +6,7 @@ export interface IRestObject {
   data  ?: any
 }
 
-export interface IGqlObject {
+export interface IGqlConfig {
   variables?: object,
   query     : string
 }

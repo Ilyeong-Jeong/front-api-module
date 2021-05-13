@@ -7,40 +7,45 @@ import axios, {
 
 import { stringify } from 'qs';
 
-// gql error 체크를 위해 사용
+import { IRestConfig, IGqlConfig } from "models/api-config"
+
+// GQL 200 ok error response type
+interface AxiosGqlResponse extends AxiosResponse {
+  errors: any;
+}
+
+// GQL error model
 import CustomError from "models/error"
 
-import { IRestObject, IGqlObject } from "models/api-config"
-
 export class Api {
-  _ajax  : AxiosInstance;
-  baseUrl: string;
+  private axiosInstance: AxiosInstance;
+  private baseUrl: string;
 
   constructor (baseUrl: string) {
     this.baseUrl = baseUrl;
 
-    this._initializeAjax();
+    this.initializeAjax();
   }
 
-  _initializeAjax () {
-    const ajax = axios.create({
+  private initializeAjax () {
+    const instance = axios.create({
       baseURL: this.baseUrl,
       // CORS 사용 시 정책적으로 wildcard만 있는 경우 인증 데이터를 사용하지 못하도록 제재
       // withCredentials: true,
     });
 
-    ajax.interceptors.response.use((response: AxiosResponse) => {
+    instance.interceptors.response.use((response: AxiosResponse) => {
       return response.data;
     }, (error: AxiosError) => {
       return Promise.reject([error]);
     });
 
-    this._ajax = ajax;
+    this.axiosInstance = instance;
   }
 
-  call (ajaxInfo: AxiosRequestConfig): Promise<any> {
+  protected call (axiosConfig: AxiosRequestConfig): Promise<any> {
     return new Promise((resolve, reject) => {
-      this._ajax(ajaxInfo)
+      this.axiosInstance(axiosConfig)
       .then((result: any) => {
         resolve(result);
       })
@@ -57,7 +62,7 @@ export class Rest extends Api {
     super(baseUrl)
   }
 
-  _restConvert (restObject: IRestObject) {
+  private restConvert (restObject: IRestConfig) {
     return Object.assign({}, restObject, {
       url: (() => {
         if (restObject.qs) {
@@ -69,9 +74,9 @@ export class Rest extends Api {
     }) as AxiosRequestConfig;
   }
 
-  restApi (restObject: IRestObject): Promise<any> {
+  public restApi (restObject: IRestConfig): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.call(this._restConvert(restObject))
+      this.call(this.restConvert(restObject))
       .then((result: AxiosResponse) => {
         resolve(result);
       })
@@ -88,7 +93,7 @@ export class Gql extends Api {
     super(baseUrl)
   }
 
-  gqlApi (gqlObject: IGqlObject): Promise<any> {
+  public gqlApi (gqlObject: IGqlConfig): Promise<any> {
     return new Promise((resolve, reject) => {
       this.call({
         url   : 'graphql',
@@ -100,7 +105,7 @@ export class Gql extends Api {
           variables: {}
         }, gqlObject)
       })
-      .then((result) => { // TODO: GQL 200 ok error response type check
+      .then((result: AxiosGqlResponse) => { 
         // error 케이스
         if(result.errors && result.errors.length > 0) {
           reject(result.errors.map((error: any) => {
@@ -111,7 +116,7 @@ export class Gql extends Api {
               });
             } else {
               return new CustomError({
-                message: "System Error"
+                message: 'System Error'
               })
             }
           }));
