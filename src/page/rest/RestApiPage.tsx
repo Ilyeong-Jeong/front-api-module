@@ -4,24 +4,20 @@ import { RootState } from 'store';
 import { getUsersAsync } from 'store/rest';
 import { User } from 'models/user';
 
-function RestApiPage () {
+function RestApiPage() {
   const { data, loading, error } = useSelector((state: RootState) => state.rest.users);
   const dispatch = useDispatch();
 
-  const getUsers = () => {
-    React.useEffect(() => {
-      dispatch(getUsersAsync.request(''));
-    }, [])
-  };
-
-  getUsers();
+  React.useEffect(() => {
+    dispatch(getUsersAsync.request(''));
+  }, []);
 
   return (
     <div className="api-rest-page">
       <h3>REST API Test space</h3>
-      {loading && <div>로딩중..</div>}
-      {error && <div>에러가 발생했습니다.</div>}
-      {data && 
+      { loading && <div>로딩중..</div> }
+      { error && <div>에러가 발생했습니다.</div> }
+      { data && 
         <ul>
           {data.map((user: User) => (
             <li key={user.id}>
@@ -31,7 +27,7 @@ function RestApiPage () {
         </ul>
       }
     </div>
-  )
+  );
 }
 
 export default RestApiPage;

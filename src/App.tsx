@@ -7,7 +7,22 @@ import styled from 'styled-components';
 
 import GlobalStyle from "./style/global-style"
 
-function App ({ route }: RouteConfigComponentProps) {
+const AppWrapper = styled.div`
+  width : 100%;
+  height: 100%;
+  background-color: #f5f5f5;
+`;
+
+const Menu = styled.div`
+  padding: 8px;
+  background-color: #777B94;
+
+  a {
+    margin-right: 8px;
+  }
+`;
+
+function App({ route }: RouteConfigComponentProps) {
   return (
     <>
       <GlobalStyle />
@@ -25,22 +40,7 @@ function App ({ route }: RouteConfigComponentProps) {
         </React.Suspense>  
       </AppWrapper>
     </>
-  )
+  );
 }
-
-const AppWrapper = styled.div`
-  width : 100%;
-  height: 100%;
-  background-color: #f5f5f5;
-`;
-
-const Menu = styled.div`
-  padding: 8px;
-  background-color: #777B94;
-
-  a {
-    margin-right: 8px;
-  }
-`;
 
 export default App;
