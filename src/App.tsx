@@ -36,7 +36,7 @@ function App({ route }: RouteConfigComponentProps) {
         </Menu>
         
         <React.Suspense fallback={ <div>Loading...</div> }>
-          { renderRoutes(route.routes) }
+          { renderRoutes(route && route.routes) }
         </React.Suspense>  
       </AppWrapper>
     </>

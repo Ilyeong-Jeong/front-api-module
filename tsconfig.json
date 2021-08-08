@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
     "baseUrl": "./src",
-    "rootDir": "./src",
-    "outDir": "./dist",
-    "noImplicitAny": true,
     "module": "esnext",
-    "target": "es5",
+    "target": "esnext",
+    "strict": true,
+    "noImplicitAny": true,
     "jsx": "react",
     "allowJs": true,
     "moduleResolution": "node",
+    "strictPropertyInitialization": false,
   },
   "include": [
     "./src"
