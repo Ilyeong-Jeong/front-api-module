@@ -1,4 +1,4 @@
-export interface IRestConfig {
+export interface RestConfig {
   url    : string,
   method : string,
   header?: string,
@@ -6,7 +6,7 @@ export interface IRestConfig {
   data  ?: any
 }
 
-export interface IGqlConfig {
+export interface GqlConfig {
   variables?: object,
   query     : string
 }

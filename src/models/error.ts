@@ -1,13 +1,13 @@
-export interface IError {
+export interface ErrorModel {
   status?: number;
   message: string;
 }
 
-export default class CustomError  implements IError {
+export default class CustomError  implements ErrorModel {
   status?: number;
   message: string;
 
-  constructor (error: IError) {
+  constructor (error: ErrorModel) {
     this.status  = error.status;
     this.message = error.message;
   }

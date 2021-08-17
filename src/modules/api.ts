@@ -7,7 +7,7 @@ import axios, {
 
 import { stringify } from 'qs';
 
-import { IRestConfig, IGqlConfig } from "models/api-config"
+import { RestConfig, GqlConfig } from "models/api-config"
 
 // GQL 200 ok error response type
 interface AxiosGqlResponse extends AxiosResponse {
@@ -57,12 +57,11 @@ export class Api {
 }
 
 export class Rest extends Api {
-
   constructor (baseUrl: string) {
-    super(baseUrl)
+    super(baseUrl);
   }
 
-  private restConvert (restObject: IRestConfig) {
+  private restConvert (restObject: RestConfig) {
     return Object.assign({}, restObject, {
       url: (() => {
         if (restObject.qs) {
@@ -74,7 +73,7 @@ export class Rest extends Api {
     }) as AxiosRequestConfig;
   }
 
-  public restApi (restObject: IRestConfig): Promise<any> {
+  public restApi (restObject: RestConfig): Promise<any> {
     return new Promise((resolve, reject) => {
       this.call(this.restConvert(restObject))
       .then((result: AxiosResponse) => {
@@ -88,12 +87,11 @@ export class Rest extends Api {
 }
 
 export class Gql extends Api {
-
   constructor (baseUrl: string) {
-    super(baseUrl)
+    super(baseUrl);
   }
 
-  public gqlApi (gqlObject: IGqlConfig): Promise<any> {
+  public gqlApi (gqlObject: GqlConfig): Promise<any> {
     return new Promise((resolve, reject) => {
       this.call({
         url   : 'graphql',
