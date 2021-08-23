@@ -1,7 +1,7 @@
 # front-api-module 
 **Front-end에서 REST API, GQL을 사용하기 위한 API 모듈**
 
-[API Module](https://github.com/Ilyeong-Jeong/front-api-module/tree/main/src/modules) api.ts 확인.
+[/src/modules/api.ts](https://github.com/Ilyeong-Jeong/front-api-module/blob/main/src/modules/api.ts) 확인.
 
 ## Tech Stack
 Node v14 base
